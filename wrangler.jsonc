@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "geomuse",
+  "main": "./src/cloudflare/worker.ts",
+  "compatibility_date": "2026-07-07",
+  "assets": {
+    "directory": "./out",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash",
+    "run_worker_first": [
+      "/maps/*"
+    ]
+  }
+}

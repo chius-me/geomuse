@@ -1,0 +1,41 @@
+# dependencies
+/node_modules
+
+# Next.js
+/.next
+/out
+
+# production
+/build
+
+# local environment
+.env*
+!.env.example
+
+# logs
+*.log
+pnpm-debug.log*
+
+# testing
+/coverage
+/playwright-report
+/test-results
+/.artifacts
+
+# editors and operating systems
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# TypeScript
+*.tsbuildinfo
+
+# pnpm
+/.pnpm-store
+
+# generated-data caches
+/.cache
+/public/vendor/maplibre-gl-csp-worker.js
+/public/_headers
+/.wrangler

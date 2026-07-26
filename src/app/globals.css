@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --page-bg: #02070d;
+  --text-primary: #f5f8fb;
+  --text-secondary: rgb(224 235 244 / 62%);
+  --accent: #72e0c4;
+  --glass-regular-bg: rgb(12 22 31 / 48%);
+  --glass-regular-blur: 20px;
+  --glass-regular-saturation: 140%;
+  --glass-regular-border: rgb(255 255 255 / 15%);
+  --glass-regular-highlight: rgb(255 255 255 / 20%);
+  --glass-shadow:
+    0 12px 36px rgb(0 0 0 / 24%),
+    0 2px 8px rgb(0 0 0 / 16%);
+  --glass-opaque-bg: rgb(13 23 32 / 94%);
+  --glass-opaque-border: rgb(255 255 255 / 28%);
+  --glass-interactive-bg: rgb(20 35 46 / 62%);
+  --glass-interactive-border: rgb(255 255 255 / 26%);
+  --glass-focus: #8ef0d7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  color: var(--text-primary);
+  background: var(--page-bg);
+  font-family:
+    Arial,
+    "PingFang SC",
+    "Microsoft YaHei",
+    sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.app-shell {
+  position: relative;
+  width: 100dvw;
+  height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.glass-surface {
+  border: 1px solid var(--glass-regular-border);
+  background: var(--glass-regular-bg);
+  box-shadow:
+    inset 0 1px 0 var(--glass-regular-highlight),
+    var(--glass-shadow);
+  backdrop-filter:
+    blur(var(--glass-regular-blur))
+    saturate(var(--glass-regular-saturation));
+  -webkit-backdrop-filter:
+    blur(var(--glass-regular-blur))
+    saturate(var(--glass-regular-saturation));
+}
+
+.brand-bar {
+  position: absolute;
+  z-index: 10;
+  top: max(20px, env(safe-area-inset-top));
+  left: max(20px, env(safe-area-inset-left));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 58px;
+  padding: 9px 18px 9px 11px;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.brand-mark {
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgb(255 255 255 / 30%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 26%, rgb(255 255 255 / 70%), transparent 10%),
+    radial-gradient(circle at 38% 38%, #76d9c2 0 17%, #163744 39%, #07111c 70%);
+  box-shadow:
+    inset -6px -8px 12px rgb(0 0 0 / 34%),
+    0 0 22px rgb(104 224 195 / 18%);
+}
+
+.brand-name,
+.brand-tagline {
+  margin: 0;
+}
+
+.brand-name {
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+.brand-tagline {
+  margin-top: 2px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-surface {
+    background: var(--glass-opaque-bg);
+    border-color: var(--glass-opaque-border);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+    --text-primary: #10202a;
+    --text-secondary: rgb(16 32 42 / 68%);
+    --accent: #147b68;
+    --glass-regular-bg: rgb(244 249 250 / 68%);
+    --glass-regular-border: rgb(255 255 255 / 76%);
+    --glass-regular-highlight: rgb(255 255 255 / 88%);
+    --glass-shadow:
+      0 12px 36px rgb(0 13 22 / 18%),
+      0 2px 8px rgb(0 13 22 / 12%);
+    --glass-opaque-bg: rgb(247 250 251 / 96%);
+    --glass-opaque-border: rgb(22 48 60 / 32%);
+    --glass-interactive-bg: rgb(255 255 255 / 82%);
+    --glass-interactive-border: rgb(18 69 72 / 34%);
+    --glass-focus: #0d6f61;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-surface {
+    transition-duration: 1ms !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass-surface {
+    background: var(--glass-opaque-bg);
+    border-color: var(--glass-opaque-border);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --text-secondary: var(--text-primary);
+  }
+
+  .glass-surface {
+    background: var(--glass-opaque-bg);
+    border-width: 2px;
+    border-color: var(--glass-opaque-border);
+    box-shadow: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .glass-surface {
+    color: CanvasText;
+    border: 1px solid CanvasText;
+    background: Canvas;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    forced-color-adjust: auto;
+  }
+
+  .brand-mark {
+    border-color: CanvasText;
+    background: Canvas;
+    box-shadow: none;
+  }
+}
