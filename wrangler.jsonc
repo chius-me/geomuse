@@ -3,6 +3,12 @@
   "name": "geomuse",
   "main": "./src/cloudflare/worker.ts",
   "compatibility_date": "2026-07-07",
+  "routes": [
+    {
+      "pattern": "geomuse.chius.cc",
+      "custom_domain": true
+    }
+  ],
   "assets": {
     "directory": "./out",
     "binding": "ASSETS",
