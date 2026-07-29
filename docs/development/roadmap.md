@@ -323,7 +323,8 @@ pnpm build
 
 状态：进行中。7A「自动化生产浏览器冒烟测试」、
 7B「Content Security Policy 与 MapLibre Worker 策略」和
-7C「Cloudflare 静态部署与缓存边界」已完成。
+7C「Cloudflare 静态部署与缓存边界」已完成；7D 已建立触控与低速 CPU
+自动化门禁，实体设备矩阵仍待验收。
 
 目标：将已稳定的地球引擎变成可长期公开部署、可持续回归的产品底座。
 
@@ -382,7 +383,20 @@ pnpm build
 均返回合法 `206 Partial Content`。完整配置见
 `docs/development/deployment.md`。
 
-下一步 7D：真实触屏设备和低端 GPU 验收。
+### 7D：移动触控与低端设备验收
+
+- 新增独立移动触控生产用例，固定 390×844、DPR 2 和粗指针；
+- 使用 Chromium DevTools 输入协议发送单指和双指触控，不以鼠标拖动代替；
+- 在 4× CPU slowdown 下验证加载、单指旋转、双指缩放、图层触控和复位；
+- 减少动态偏好下复位必须立即收敛并清除默认镜头 URL；
+- 触控用例进入完整 CI，也可通过 `pnpm test:smoke:touch` 单独运行；
+- 实体设备验收矩阵与记录模板见 `docs/development/device-acceptance.md`；
+- 自动化结果不外推为具体移动 GPU、温控、Safari 或触摸屏采样率结论。
+
+当前状态：自动化门禁已完成；iPhone、主流 Android 与低端 Android 实体设备
+仍待验收，因此 7D 保持部分完成。
+
+下一步：完成实体设备矩阵，随后进入 7E「WebGL 上下文丢失后的可恢复路径」。
 
 ## 每一步固定检查
 

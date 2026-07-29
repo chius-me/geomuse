@@ -20,7 +20,7 @@
 | 全球数据 | Natural Earth，后续补充 OpenStreetMap |
 | 样式 | Tailwind CSS + CSS Variables |
 | 动效 | Motion |
-| 部署 | 暂未决定 |
+| 部署 | Cloudflare Workers Static Assets |
 
 ## 3. 模块边界
 

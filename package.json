@@ -18,6 +18,8 @@
     "test": "node --test src/cloudflare/*.test.ts src/globe/*.test.ts src/security/*.test.ts",
     "test:smoke": "pnpm build && pnpm test:smoke:run",
     "test:smoke:run": "playwright test",
+    "test:smoke:touch": "pnpm build && pnpm test:smoke:touch:run",
+    "test:smoke:touch:run": "playwright test --grep @touch",
     "test:smoke:install": "playwright install chromium",
     "perf:budget": "node scripts/verify-performance-budget.mjs",
     "data:basemap": "node scripts/build-basemap.mjs",
