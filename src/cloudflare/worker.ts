@@ -29,25 +29,19 @@ const worker = {
     }
 
     const cache = (caches as CloudflareCacheStorage).default;
-    const cachedResponse = await cache.match(request);
+    const cacheKey = new Request(request.url, { method: "GET" });
+    const cachedResponse = await cache.match(cacheKey);
+    const fullResponse =
+      (await fullResponseFromCache(cachedResponse)) ??
+      (await fetchFullAsset(request, env));
 
-    if (cachedResponse) {
-      return withSecurityHeaders(cachedResponse);
+    if (!fullResponse.ok) {
+      return withSecurityHeaders(fullResponse);
     }
 
-    const assetRequest = withoutRangeHeader(request);
-    const assetResponse = await env.ASSETS.fetch(assetRequest);
-
-    if (!assetResponse.ok) {
-      return withSecurityHeaders(assetResponse);
+    if (fullResponse.headers.get("Content-Length") !== "0") {
+      context.waitUntil(cache.put(cacheKey, fullResponse.clone()));
     }
-
-    const fullResponse = withPmtilesHeaders(assetResponse);
-    const cacheKey = new Request(request.url);
-
-    context.waitUntil(
-      cache.put(cacheKey, fullResponse.clone()),
-    );
 
     if (request.method === "HEAD") {
       return withSecurityHeaders(
@@ -64,12 +58,38 @@ const worker = {
 
 export default worker;
 
-function withoutRangeHeader(request: Request) {
+async function fullResponseFromCache(cachedResponse: Response | undefined) {
+  if (!cachedResponse?.ok) {
+    return null;
+  }
+
+  const body = await cachedResponse.arrayBuffer();
+
+  if (body.byteLength === 0) {
+    return null;
+  }
+
+  return withPmtilesHeaders(
+    new Response(body, responseInit(cachedResponse)),
+  );
+}
+
+async function fetchFullAsset(request: Request, env: Env) {
+  const assetResponse = await env.ASSETS.fetch(asGetWithoutRange(request));
+
+  if (!assetResponse.ok) {
+    return assetResponse;
+  }
+
+  return withPmtilesHeaders(assetResponse);
+}
+
+function asGetWithoutRange(request: Request) {
   const headers = new Headers(request.headers);
   headers.delete("Range");
   headers.delete("If-Range");
 
-  return new Request(request, { headers });
+  return new Request(request.url, { method: "GET", headers });
 }
 
 function withPmtilesHeaders(response: Response) {
@@ -105,6 +125,7 @@ async function createRangeResponse(
       `bytes */${body.byteLength}`,
     );
     headers.set("Content-Length", "0");
+    headers.set("Cache-Control", "no-store");
 
     return withSecurityHeaders(
       new Response(null, { status: 416, headers }),
