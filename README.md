@@ -46,7 +46,7 @@ pnpm test:smoke:install
 
 ## 部署
 
-生产构建导出到 `out/`，由 Cloudflare Workers Static Assets 托管：
+生产环境：<https://geomuse.chius.dev>。构建导出到 `out/`，由 Cloudflare Workers Static Assets 托管：
 
 ```bash
 pnpm build

@@ -87,7 +87,7 @@ pnpm perf:budget
 
 日期：2026-07-29
 
-页面：`https://geomuse.chius.cc/`
+页面：`https://geomuse.chius.dev/`
 
 环境：Chrome 150，桌面视口，1× CPU，无网络节流，忽略缓存后重新导航
 

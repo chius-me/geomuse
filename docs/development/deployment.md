@@ -38,6 +38,7 @@ pnpm preview:cloudflare
 部署配置位于 `wrangler.jsonc`：
 
 - 项目名：`geomuse`
+- 自定义域名：`geomuse.chius.dev`
 - 输出目录：`out`
 - 未找到页面：静态 `404.html`
 - URL：自动尾斜杠策略
