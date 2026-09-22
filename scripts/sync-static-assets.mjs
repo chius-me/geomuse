@@ -13,32 +13,41 @@ const projectRoot = resolve(
   dirname(fileURLToPath(import.meta.url)),
   "..",
 );
-const sourcePath = resolve(
-  projectRoot,
-  "node_modules/maplibre-gl/dist/maplibre-gl-csp-worker.js",
-);
-const destinationPath = resolve(
-  projectRoot,
-  "public/vendor/maplibre-gl-csp-worker.js",
-);
+const vendorFiles = [
+  [
+    "node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs",
+    "public/vendor/maplibre-gl-worker.mjs",
+  ],
+  [
+    "node_modules/maplibre-gl/dist/maplibre-gl-shared.mjs",
+    "public/vendor/maplibre-gl-shared.mjs",
+  ],
+];
 const headersPath = resolve(projectRoot, "public/_headers");
 
-await mkdir(dirname(destinationPath), { recursive: true });
-await copyFile(sourcePath, destinationPath);
+for (const [source, destination] of vendorFiles) {
+  const sourcePath = resolve(projectRoot, source);
+  const destinationPath = resolve(projectRoot, destination);
+  await mkdir(dirname(destinationPath), { recursive: true });
+  await copyFile(sourcePath, destinationPath);
+}
+
 await writeFile(
   headersPath,
   createCloudflareHeadersFile(),
   "utf8",
 );
 
-const worker = await readFile(destinationPath);
+const worker = await readFile(
+  resolve(projectRoot, vendorFiles[0][1]),
+);
 const digest = createHash("sha256")
   .update(worker)
   .digest("hex")
   .slice(0, 12);
 
 console.log(
-  `Synced MapLibre CSP worker (${worker.byteLength} bytes, sha256:${digest})`,
+  `Synced MapLibre worker (${worker.byteLength} bytes, sha256:${digest})`,
 );
 console.log("Generated Cloudflare static asset headers");
 

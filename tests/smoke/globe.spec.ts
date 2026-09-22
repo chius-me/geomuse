@@ -60,7 +60,7 @@ test("desktop production globe uses same-origin CSP worker and PMTiles", async (
   const workerResponse = page.waitForResponse(
     (response) =>
       response.url().endsWith(
-        "/vendor/maplibre-gl-csp-worker.js",
+        "/vendor/maplibre-gl-worker.mjs",
       ),
   );
   const pmtilesResponse = page.waitForResponse(

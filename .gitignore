@@ -36,6 +36,7 @@ pnpm-debug.log*
 
 # generated-data caches
 /.cache
-/public/vendor/maplibre-gl-csp-worker.js
+/public/vendor/maplibre-gl-worker.mjs
+/public/vendor/maplibre-gl-shared.mjs
 /public/_headers
 /.wrangler

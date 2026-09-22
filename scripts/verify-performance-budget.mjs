@@ -5,7 +5,8 @@ import path from "node:path";
 const kibibyte = 1024;
 const budgets = {
   initialJavaScriptGzip: 450 * kibibyte,
-  mapLibreWorkerGzip: 128 * kibibyte,
+  // v6 ships the worker and maplibre-gl-shared.mjs as a pair.
+  mapLibreWorkerGzip: 144 * kibibyte,
   totalStartupJavaScriptGzip: 550 * kibibyte,
   initialCssGzip: 20 * kibibyte,
   basemap: 1 * 1024 * kibibyte,
@@ -20,10 +21,10 @@ const basemapPath = path.join(
   projectRoot,
   "public/maps/geomuse-basemap.pmtiles",
 );
-const mapLibreWorkerPath = path.join(
-  projectRoot,
-  "public/vendor/maplibre-gl-csp-worker.js",
-);
+const mapLibreWorkerPaths = [
+  path.join(projectRoot, "public/vendor/maplibre-gl-worker.mjs"),
+  path.join(projectRoot, "public/vendor/maplibre-gl-shared.mjs"),
+];
 
 const pageHtml = await readFile(pageHtmlPath, "utf8");
 const initialJavaScriptUrls = [
@@ -61,9 +62,13 @@ for (const chunkUrl of chunkUrls) {
 }
 
 const basemapSize = (await stat(basemapPath)).size;
-const mapLibreWorkerGzipSize = gzipSync(
-  await readFile(mapLibreWorkerPath),
-).byteLength;
+const mapLibreWorkerGzipSize = (
+  await Promise.all(
+    mapLibreWorkerPaths.map(async (workerPath) =>
+      gzipSync(await readFile(workerPath)).byteLength,
+    ),
+  )
+).reduce((total, size) => total + size, 0);
 const checks = [
   {
     name: "Initial JavaScript (gzip)",
@@ -71,7 +76,7 @@ const checks = [
     budget: budgets.initialJavaScriptGzip,
   },
   {
-    name: "MapLibre CSP worker (gzip)",
+    name: "MapLibre worker (gzip)",
     actual: mapLibreWorkerGzipSize,
     budget: budgets.mapLibreWorkerGzip,
   },
