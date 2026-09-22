@@ -1,33 +1,37 @@
 # GeoMuse 浏览器安全基线
 
-日期：2026-07-26
+日期：2026-09-22
 
 本文件记录 GeoMuse 当前的浏览器安全边界。策略目标是在保持静态页面与
 MapLibre 高性能渲染的同时，避免使用 `blob:` Worker，并将可执行资源限制在
 同源。
 
-## MapLibre CSP Worker
+## MapLibre Worker
 
-GeoMuse 使用 MapLibre GL JS 提供的 CSP 专用构建：
+GeoMuse 使用 MapLibre GL JS 6 的 ESM 构建。v6 不再发布独立的 CSP bundle。
+严格 CSP 仍禁止 `blob:` Worker，所以构建时把同源 Worker 复制出来，再用
+`setWorkerUrl()` 指向它。Worker 会按相对路径加载旁边的 shared 模块，两个文件
+必须放在同一目录：
 
 ```text
-maplibre-gl-csp.js
-maplibre-gl-csp-worker.js
+maplibre-gl-worker.mjs
+maplibre-gl-shared.mjs
 ```
 
 `predev` 和 `prebuild` 会运行 `scripts/sync-static-assets.mjs`，从当前锁定的
-`maplibre-gl` npm 依赖复制 Worker 到：
+`maplibre-gl` npm 依赖复制这两个文件到：
 
 ```text
-/vendor/maplibre-gl-csp-worker.js
+/vendor/maplibre-gl-worker.mjs
+/vendor/maplibre-gl-shared.mjs
 ```
 
 生成文件不进入 Git。它始终由 `pnpm-lock.yaml` 中锁定的 MapLibre 版本产生，
 同步脚本会输出文件大小和 SHA-256 短摘要。升级 MapLibre 后必须重新构建并运行
 生产冒烟测试，不能单独保留旧 Worker。
 
-MapLibre 主实例、Worker 设置和 PMTiles `addProtocol` 必须使用同一个 CSP
-运行时。若 PMTiles 注册到标准构建、地球实例使用 CSP 构建，协议将不会被接管。
+MapLibre 主实例、Worker 设置和 PMTiles `addProtocol` 必须来自同一个
+`maplibre-gl` 导入。协议注册和地图实例不能各用一份独立构建。
 
 ## Content Security Policy
 

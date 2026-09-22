@@ -1,7 +1,7 @@
-import maplibregl from "maplibre-gl/dist/maplibre-gl-csp.js";
+import * as maplibregl from "maplibre-gl";
 
 export const mapLibreWorkerUrl =
-  "/vendor/maplibre-gl-csp-worker.js";
+  "/vendor/maplibre-gl-worker.mjs";
 
 let hasConfiguredWorker = false;
 

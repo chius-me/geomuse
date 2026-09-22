@@ -104,7 +104,7 @@ pnpm data:http -- <production-pmtiles-url>
 并检查：
 
 - HTML 与 Worker 响应包含 CSP；
-- `/vendor/maplibre-gl-csp-worker.js` 返回 JavaScript MIME；
+- `/vendor/maplibre-gl-worker.mjs` 返回 JavaScript MIME；
 - PMTiles Range 请求返回 `206`、`Accept-Ranges` 和合法 `Content-Range`；
 - 地球进入“地球已就绪”；
 - 浏览器控制台没有 CSP 或未处理错误。

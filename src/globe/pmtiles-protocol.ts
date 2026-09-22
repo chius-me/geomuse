@@ -1,4 +1,4 @@
-import maplibregl from "maplibre-gl/dist/maplibre-gl-csp.js";
+import * as maplibregl from "maplibre-gl";
 import { Protocol } from "pmtiles";
 
 let protocol: Protocol | null = null;
