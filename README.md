@@ -68,7 +68,7 @@ pnpm deploy:cloudflare
 
 ## License
 
-- 软件源代码：Apache License 2.0
+- 软件源代码：MIT License
 - `docs/` 下原创科普与设计内容：CC BY-SA 4.0
 - 第三方数据和软件：遵循各自许可证
 - GeoMuse 名称、Logo 与品牌视觉：保留所有权利
