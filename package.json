@@ -11,6 +11,7 @@
     "build": "next build",
     "start": "pnpm preview:cloudflare",
     "preview:cloudflare": "WRANGLER_LOG_PATH=.wrangler/logs wrangler dev --local",
+    "deploy": "WRANGLER_LOG_PATH=.wrangler/logs wrangler deploy",
     "deploy:cloudflare": "WRANGLER_LOG_PATH=.wrangler/logs wrangler deploy",
     "deploy:cloudflare:check": "WRANGLER_LOG_PATH=.wrangler/logs wrangler deploy --dry-run",
     "lint": "eslint .",
