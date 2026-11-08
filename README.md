@@ -1,6 +1,22 @@
-# GeoMuse — 地球万象
+<div align="center">
 
-转动地球，理解世界。
+# GeoMuse · 地球万象
+
+转动地球，理解世界。以高性能交互式 3D 地球为入口的地理科普平台。
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/chius-me/geomuse?color=2ea44f)](https://github.com/chius-me/geomuse/releases/latest)
+[![CI](https://github.com/chius-me/geomuse/actions/workflows/ci.yml/badge.svg)](https://github.com/chius-me/geomuse/actions)
+![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-f38020?logo=cloudflare&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
+![MapLibre](https://img.shields.io/badge/MapLibre-GL%20JS-blue?logo=maplibre&logoColor=white)
+
+[在线体验 (Live Demo)](https://geomuse.chius.dev) · [架构文档](docs/architecture/foundation.md) · [设计规范](docs/design/liquid-glass.md)
+
+</div>
+
+---
 
 GeoMuse 是一个以高性能交互式 3D 地球为入口的地理科普产品。目前版本专注于
 地图引擎底座：全球到区域尺度浏览、可复现的开源底图、图层控制、镜头命令、
@@ -75,3 +91,9 @@ pnpm deploy:cloudflare
 
 详见 `LICENSE`、`LICENSE-CONTENT`、`NOTICE` 和
 `THIRD_PARTY_NOTICES.md`。
+
+---
+
+<div align="center">
+  <sub>Crafted with ❤️ by <a href="https://chius.cc">Chius</a> · Powered by Cloudflare & GitHub</sub>
+</div>
