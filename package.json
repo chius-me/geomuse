@@ -44,7 +44,7 @@
     "@types/react-dom": "19.2.3",
     "eslint": "9.39.5",
     "eslint-config-next": "16.3.3",
-    "geojson-vt": "4.0.3",
+    "geojson-vt": "5.0.4",
     "tailwindcss": "4.3.3",
     "typescript": "5.9.3",
     "vt-pbf": "3.1.3",

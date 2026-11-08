@@ -59,8 +59,8 @@ importers:
         specifier: 16.3.3
         version: 16.3.3(@typescript-eslint/parser@8.65.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
       geojson-vt:
-        specifier: 4.0.3
-        version: 4.0.3
+        specifier: 5.0.4
+        version: 5.0.4
       tailwindcss:
         specifier: 4.3.3
         version: 4.3.3
@@ -1536,8 +1536,8 @@ packages:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
 
-  geojson-vt@4.0.3:
-    resolution: {integrity: sha512-jR1MwkLaZGa8Zftct9ZFruyWFrdl9ZyD2OliXNy9Qq5bBPeg5wHVpBQF9p5GjnicSDQqvBVpysxTPKmWdsfWMA==}
+  geojson-vt@5.0.4:
+    resolution: {integrity: sha512-K2tn8Fth4vSx807TgI1sQnQqArmI0QPOJDs2UqOOtDViXigPC5In1kiLb+HWcmLtQcni/6ss5x1QUl4eyv3zlg==}
 
   get-intrinsic@1.3.0:
     resolution: {integrity: sha512-9fSjSaos/fRIVIp+xSJlE6lfwhES7LNtKaCBIamHsjr2na1BiABJPo0mOjjz8GJDURarmCPGqaiVg5mfjb98CQ==}
@@ -3964,7 +3964,9 @@ snapshots:
 
   gensync@1.0.0-beta.2: {}
 
-  geojson-vt@4.0.3: {}
+  geojson-vt@5.0.4:
+    dependencies:
+      '@types/geojson': 7946.0.16
 
   get-intrinsic@1.3.0:
     dependencies:
